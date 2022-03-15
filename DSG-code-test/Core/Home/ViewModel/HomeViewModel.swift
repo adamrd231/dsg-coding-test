@@ -12,6 +12,7 @@ import SwiftUI
 class HomeViewModel: ObservableObject {
     
     @Published var events: [Event] = []
+    @Published var selectedEvent: Event?
     // Current Search Text
     @Published var searchText: String = ""
     

@@ -16,18 +16,5 @@ extension Date {
         func get(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
             return calendar.component(component, from: self)
         }
-    
-    
-    
-    private var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-      
-        return formatter
-    }
 
-    
-    func asDateString(date: Date) -> String {
-        let day = date.get(.day)
-        return "\(day)"
-    }
 }
