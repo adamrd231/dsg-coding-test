@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct DSG_code_testApp: App {
+    
+    @StateObject private var vm = HomeViewModel()
+    
     var body: some Scene {
+       
         WindowGroup {
-            ContentView()
+            NavigationView {
+                HomeView()
+                    .environmentObject(vm)
+            }
         }
     }
 }
