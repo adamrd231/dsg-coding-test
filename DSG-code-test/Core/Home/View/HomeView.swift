@@ -20,17 +20,10 @@ struct HomeView: View {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         
         if let date = dateFormatter.date(from: string) {
-            print("Date: \(date)")
             let dateFormatterPrint = DateFormatter()
             dateFormatterPrint.dateFormat = "E, d MMM yyyy h:mm a"
             return Text(dateFormatterPrint.string(from: date))
         }
-    
-        
-//        let calendar = Calendar.current
-//        let components = calendar.dateComponents([.day, .hour], from: date)
-//
-//        let finalDate = calendar.date(from:components)
         
         return Text("")
     }
@@ -39,14 +32,34 @@ struct HomeView: View {
         VStack {
             SearchBarView(searchText: $vm.searchText)
 
-            List {
+            
+            Form {
                 ForEach(vm.events, id: \.id) { event in
-                    NavigationLink(destination: DetailView(event: event)) {
+                    NavigationLink(destination: DetailView(event: event).environmentObject(vm)) {
                         HStack {
-                            ImageView(imageURL: event.performers?.first?.image ?? "", imageName: "\(event.performers?.first?.name ?? "1")")
-                                .frame(width: 75, height: 75)
-                                .clipped()
-                                .cornerRadius(7)
+                            
+                            
+                            ZStack {
+
+                                ImageView(imageURL: event.performers?.first?.image ?? "", imageName: "\(event.performers?.first?.name ?? "1")")
+                                    .frame(width: 75, height: 75)
+                                    .clipped()
+                                    .cornerRadius(7)
+                                    
+                                
+                                
+                                if vm.favorites.contains(event.title ?? "na") {
+                                        
+                                        Image(systemName: "suit.heart.fill")
+                                            .frame(width: 30, height: 30)
+                                            .padding(.trailing)
+                                            .foregroundColor(.pink)
+                                            .offset(x: -25, y: -33)
+                                    
+                                    
+                                }
+                            }
+                            
                                 
             
                             VStack(alignment: .leading, spacing: 1) {
@@ -54,14 +67,13 @@ struct HomeView: View {
                                     .font(.callout)
                                     .fontWeight(.bold)
                                     
-                                HStack {
+                                HStack(spacing: 1) {
                                     Text(event.venue?.city ?? "")
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
+                                    Text(",")
                                     Text(event.venue?.state ?? "")
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
-                                }
+                                        
+                                }.font(.caption)
+                                .foregroundColor(.gray)
                                 createDateFormat(dateString: event.datetime_local)
                                     .font(.caption)
                                     .foregroundColor(.gray)
@@ -69,10 +81,17 @@ struct HomeView: View {
                             }
                         }
                     }
-                    
                 }
             }
         }
+        .onAppear(perform: {
+            if !vm.searchText.isEmpty {
+                vm.seatGeekDataService.getEvents(text: vm.searchText)
+            } else {
+                vm.seatGeekDataService.getEvents(text: "")
+            }
+            
+        })
         .navigationTitle("")
         .navigationBarHidden(true)
         

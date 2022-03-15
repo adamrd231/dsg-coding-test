@@ -19,13 +19,19 @@ class SeatGeekDataService {
     
     var seatGeekSubscription: AnyCancellable?
     
-    init() {
-        getEvents()
-    }
+    var searchPrefix = "&q="
     
-    func getEvents() {
+    
+    func getEvents(text: String) {
         
-        guard let url = URL(string: "https://api.seatgeek.com/2/events?client_id=MjYxMDY4NTd8MTY0NzI3NjI5Ni44OTcxMDE0&q=swift") else { return }
+        var urlString: String = "https://api.seatgeek.com/2/events?client_id=MjYxMDY4NTd8MTY0NzI3NjI5Ni44OTcxMDE0"
+        
+        if !text.isEmpty {
+            urlString = urlString + searchPrefix + text
+        }
+        
+        
+        guard let url = URL(string: urlString) else { return }
         
         seatGeekSubscription = NetworkingManager.download(url: url)
             .decode(type: Welcome.self, decoder: JSONDecoder())
@@ -33,10 +39,11 @@ class SeatGeekDataService {
             .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedModel) in
 //                print("Returned Model: \(returnedModel)")
                 self?.welcome = returnedModel
+                
+                var newArray:[Event] = []
 
                 if let array = self?.welcome?.events {
                     for object in array {
-                        print("Performers: \(object.performers?.first?.image ?? "Not availble")")
                         let newEvent = Event(id: object.id,
                                              datetimeUTC: object.datetimeUTC,
                                              venue: object.venue,
@@ -47,8 +54,9 @@ class SeatGeekDataService {
                                              popularity: object.popularity,
                                              description: object.description)
                         
-                        self?.events.append(newEvent)
+                        newArray.append(newEvent)
                     }
+                    self?.events = newArray
 
                 }
                 

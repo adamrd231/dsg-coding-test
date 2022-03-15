@@ -22,6 +22,7 @@
 		66445B4C27E01FDA00A9EE1F /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66445B4B27E01FDA00A9EE1F /* ImageService.swift */; };
 		66445B4E27E025AE00A9EE1F /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66445B4D27E025AE00A9EE1F /* SearchBarView.swift */; };
 		66445B5027E0392800A9EE1F /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66445B4F27E0392800A9EE1F /* DetailView.swift */; };
+		66C5960127E1109000B0711D /* Published.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C5960027E1109000B0711D /* Published.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		66445B4B27E01FDA00A9EE1F /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		66445B4D27E025AE00A9EE1F /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		66445B4F27E0392800A9EE1F /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		66C5960027E1109000B0711D /* Published.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Published.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				66445B4427E0122B00A9EE1F /* Date.swift */,
+				66C5960027E1109000B0711D /* Published.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				66445B2627DFA61F00A9EE1F /* HomeView.swift in Sources */,
 				66445B4E27E025AE00A9EE1F /* SearchBarView.swift in Sources */,
 				66445B4827E01C3400A9EE1F /* ImageViewModel.swift in Sources */,
+				66C5960127E1109000B0711D /* Published.swift in Sources */,
 				66445B4527E0122B00A9EE1F /* Date.swift in Sources */,
 				66445B5027E0392800A9EE1F /* DetailView.swift in Sources */,
 				66445B4027DFAB8600A9EE1F /* NetworkingManager.swift in Sources */,

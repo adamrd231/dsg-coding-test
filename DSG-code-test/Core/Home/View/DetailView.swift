@@ -9,7 +9,9 @@ import SwiftUI
 
 struct DetailView: View {
     
-    let event: Event
+    @State var event: Event
+    @EnvironmentObject var vm: HomeViewModel
+    @State var isFavorite: Bool = false
     
     func createDateFormat(dateString: String) -> Text {
         
@@ -36,11 +38,24 @@ struct DetailView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(event.title?.description ?? ":")
-                
-                .font(.title3)
-                .fontWeight(.bold)
-                .padding(.bottom, 5)
+            HStack {
+                Text(event.title?.description ?? ":")
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .padding(.bottom, 5)
+                Spacer()
+                Image(systemName: vm.favorites.contains(event.title ?? "") ?? false ? "suit.heart.fill" : "suit.heart")
+                    .padding(.trailing)
+                    .foregroundColor(.pink)
+                    .onTapGesture {
+                        if vm.favorites.contains(event.title ?? "na") {
+                            vm.removeEvent(event.title ?? "qa")
+                        } else {
+                            vm.addEvent(event.title ?? "na")
+                        }
+                    }
+            }
+            
             HStack {
                 Spacer()
                 ImageView(imageURL: event.performers?.first?.image ?? "", imageName: event.performers?.first?.name ?? "1")

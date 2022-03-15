@@ -12,32 +12,39 @@ struct SearchBarView: View {
     @Binding var searchText: String
     
     var body: some View {
-        HStack {
-            Image(systemName: "magnifyingglass")
-                .foregroundColor(.white)
-            TextField("Search By Name or Symbol...", text: $searchText)
-                .foregroundColor(Color.white)
-                .disableAutocorrection(true)
-                .overlay(
-                    Image(systemName: "xmark.circle.fill")
-                        .padding()
-                        .offset(x: 10)
-                        .foregroundColor(Color.white)
-                        .opacity(searchText.isEmpty ? 0.0 : 1.0)
-                        .onTapGesture {
-                            searchText = ""
-                        }
-                    ,alignment: .trailing
-                )
-            Button(action: {
-                
-            }) {
-                Text("Cancel")
+        VStack {
+            HStack(alignment: .bottom) {
+                Image(systemName: "magnifyingglass")
                     .foregroundColor(.white)
+                TextField("Search By Name or Symbol...", text: $searchText)
+                    .foregroundColor(Color.white)
+                    .disableAutocorrection(true)
+                    .overlay(
+                        Image(systemName: "xmark.circle.fill")
+                            .padding()
+                            .offset(x: 10)
+                            .foregroundColor(Color.white)
+                            .opacity(searchText.isEmpty ? 0.0 : 1.0)
+                            .onTapGesture {
+                                searchText = ""
+                            }
+                        ,alignment: .trailing
+                    )
+                    
+                Button(action: {
+                    
+                }) {
+                    Text("Cancel")
+                        .foregroundColor(.white)
+                }
             }
+            .frame(height: 60)
+            .padding()
+            .background(Color.blue)
+            .edgesIgnoringSafeArea(.top)
         }
-        .padding()
-        .background(Color.black)
+        
+        
        
     }
 }

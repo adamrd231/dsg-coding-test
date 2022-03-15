@@ -77,7 +77,7 @@ struct Performer: Codable, Hashable, Equatable {
     
 //    let type: PerformerType
     let name: String
-    let image: String
+    let image: String?
     let id: Int
     let images: PerformerImages?
 //    let divisions: NSNull
