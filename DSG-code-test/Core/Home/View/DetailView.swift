@@ -37,12 +37,12 @@ struct DetailView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .center) {
                 Text(event.title?.description ?? ":")
                     .font(.title3)
                     .fontWeight(.bold)
-                    .padding(.bottom, 5)
+                    
                 Spacer()
                 Image(systemName: vm.favorites.contains(event.title ?? "") ?? false ? "suit.heart.fill" : "suit.heart")
                     .padding(.trailing)
@@ -60,10 +60,10 @@ struct DetailView: View {
                 Spacer()
                 ImageView(imageURL: event.performers?.first?.image ?? "", imageName: event.performers?.first?.name ?? "1")
                     .frame(width: UIScreen.main.bounds.width * 0.8, height: 200, alignment: .center)
-                    .padding()
                     .shadow(radius: 5, x: 5)
                 Spacer()
             }
+            .padding(.top)
             createDateFormat(dateString: event.datetime_local)
                 .font(.title3)
                 .fontWeight(.bold)
@@ -78,6 +78,7 @@ struct DetailView: View {
         }
         .padding()
         .navigationTitle("Details")
+
         .navigationBarTitleDisplayMode(.inline)
         
     }

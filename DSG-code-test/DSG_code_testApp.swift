@@ -10,6 +10,11 @@ import SwiftUI
 @main
 struct DSG_code_testApp: App {
     
+    init() {
+   
+        UINavigationBar.appearance().backgroundColor = UIColor(Color.theme.backgroundColor)
+    }
+    
     @StateObject private var vm = HomeViewModel()
     
     var body: some Scene {
@@ -18,6 +23,8 @@ struct DSG_code_testApp: App {
             NavigationView {
                 HomeView()
                     .environmentObject(vm)
+                    .navigationBarTitle("")
+                    .navigationBarHidden(true)
             }
         }
     }

@@ -13,7 +13,7 @@ struct HomeView: View {
     @State var showDetailView: Bool = false
     
     func createDateFormat(dateString: String) -> Text {
-        
+
         let string = dateString + "+0000"
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -24,48 +24,39 @@ struct HomeView: View {
             dateFormatterPrint.dateFormat = "E, d MMM yyyy h:mm a"
             return Text(dateFormatterPrint.string(from: date))
         }
-        
         return Text("")
     }
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 0) {
             SearchBarView(searchText: $vm.searchText)
-
-            
-            Form {
+            ScrollView {
                 ForEach(vm.events, id: \.id) { event in
                     NavigationLink(destination: DetailView(event: event).environmentObject(vm)) {
-                        HStack {
-                            
+
+                        HStack(spacing: 0) {
                             
                             ZStack {
-
                                 ImageView(imageURL: event.performers?.first?.image ?? "", imageName: "\(event.performers?.first?.name ?? "1")")
                                     .frame(width: 75, height: 75)
                                     .clipped()
                                     .cornerRadius(7)
-                                    
-                                
                                 
                                 if vm.favorites.contains(event.title ?? "na") {
-                                        
                                         Image(systemName: "suit.heart.fill")
                                             .frame(width: 30, height: 30)
                                             .padding(.trailing)
                                             .foregroundColor(.pink)
                                             .offset(x: -25, y: -33)
-                                    
-                                    
                                 }
                             }
-                            
-                                
-            
+                            .padding()
+ 
                             VStack(alignment: .leading, spacing: 1) {
                                 Text(event.title ?? "")
                                     .font(.callout)
                                     .fontWeight(.bold)
+                                    .foregroundColor(.black)
                                     
                                 HStack(spacing: 1) {
                                     Text(event.venue?.city ?? "")
@@ -79,10 +70,20 @@ struct HomeView: View {
                                     .foregroundColor(.gray)
                                 
                             }
+                            Spacer()
                         }
+                        
+                        .background(Color.white)
+                        .cornerRadius(15)
+                        .padding(.horizontal)
+                        .padding(.vertical, 5)
+                        .shadow(radius: 3, x: 3, y: 3)
                     }
                 }
             }
+            .navigationBarHidden(true)
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
         }
         .onAppear(perform: {
             if !vm.searchText.isEmpty {
@@ -92,10 +93,10 @@ struct HomeView: View {
             }
             
         })
-        .navigationTitle("")
-        .navigationBarHidden(true)
-        
+  
+       
     }
+    
 }
 
 struct Home_Previews: PreviewProvider {
